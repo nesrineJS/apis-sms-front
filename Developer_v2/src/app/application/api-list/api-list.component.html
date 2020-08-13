@@ -1,0 +1,149 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+
+
+        <div class="row">
+          <div class="col-12 grid-margin">
+            <div class="float-left">
+              <h4>Add APIs</h4>
+            </div>
+            <div class="float-right">
+              <button class="btn btn-secondary" (click)="Back()">
+                <i class="fa fa-mail-forward" (click)="Back()"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12 d-flex align-items-stretch grid-margin">
+            <h4>Recommanded APIs & Packages</h4>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 grid-margin stretch-card"
+            *ngFor='let apirec of apirecommanded'>
+            <div class="card card-statistics social-card card-default">
+              <div class="card-body">
+
+                <i class="d-block img-sm mx-auto mb-2 {{apirec.logo}}"> </i>
+                <p class="text-center font">{{apirec.title}}</p>
+                <p class="text-left mb-2 text-muted">{{apirec.description}}</p>
+
+                <div class="footer">
+                  <div>
+                    <a><small class="d-block mt-4 text-center posted-date">{{apirec.nbr_app}} Applications used this
+                        api</small></a>&nbsp;
+
+                    <div class="clearfix">
+                      <div class="float-right template-demo">
+                        <ul style="list-style: none;">
+                          <li style="display: inline;">
+                            <a href="{{apirec.url}}" target="_blank">
+                              <button type="button" class="btn btn-secondary icon-btn">
+                                <i class="mdi mdi-file-document-box"></i>
+
+                              </button>
+                            </a>&nbsp;
+                          </li>
+                          <li style="display: inline;">
+                            <button type="button" class="btn btn-success icon-btn"
+                              (click)="GoToApiDetail(apirec.id_api)" routerLinkActive="active">Activate</button></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12 d-flex align-items-stretch grid-margin">
+            <h4>Api List</h4>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 grid-margin stretch-card" *ngFor='let api of allApis'>
+            <div class="card card-statistics social-card card-default" *ngIf="api.id_type_api==1">
+
+              <div class="card-body">
+                <i class="d-block img-sm rounded-circle mx-auto mb-2 {{api.logo}}"> </i>
+                <p class="text-center font">{{api.title}}</p>
+                <p class="text-left mb-2 text-muted">{{api.description}}</p>
+                <div class="footer">
+                  <a><small class="d-block mt-4 text-center posted-date">{{api.nbr_app}} Applications used this
+                      api</small></a>&nbsp;
+                  <div class="clearfix">
+                    <div class="float-right template-demo">
+                      <ul style="list-style: none;">
+                        <li style="display: inline;">
+                          <a href="{{api.url}}" target="_blank">
+                            <button type="button" class="btn btn-secondary icon-btn">
+                              <i class="mdi mdi-file-document-box"></i>
+
+                            </button>
+                          </a>&nbsp;
+                        </li>
+                        <li style="display: inline;">
+                          <button type="button" class="btn btn-success icon-btn" (click)="GoToApiDetail(api.id_api)"
+                            routerLinkActive="active">Activate</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12 d-flex align-items-stretch grid-margin">
+            <h4>Package List</h4>
+          </div>
+
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 grid-margin stretch-card" *ngFor='let api of allApis'>
+            <div class="card card-statistics social-card card-default" *ngIf="api.id_type_api==2">
+              <div class="card-body">
+                <i class="d-block img-sm rounded-circle mx-auto mb-2 {{api.logo}}"> </i>
+                <p class="text-center font">{{api.title}}</p>
+                <p class="text-left mb-2 text-muted">{{api.description}}</p>
+                <div class="footer">
+                  <div>
+                    <a><small class="d-block mt-4 text-center posted-date">{{api.nbr_app}} Applications used this
+                        api</small></a>&nbsp;
+                    <div class="clearfix">
+                      <div class="float-right template-demo">
+                        <ul style="list-style: none;">
+                          <li style="display: inline;">
+                            <a href="{{api.url}}" target="_blank">
+                              <button type="button" class="btn btn-secondary icon-btn">
+                                <i class="mdi mdi-file-document-box"></i>
+
+                              </button>
+                            </a>&nbsp;
+                          </li>
+                          <li style="display: inline;">
+                            <button type="button" class="btn btn-success icon-btn" (click)="GoToApiDetail(api.id_api)"
+                              routerLinkActive="active">Activate</button></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

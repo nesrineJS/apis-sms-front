@@ -1,0 +1,95 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+
+
+        <div class="row">
+          <div class="col-12 grid-margin">
+            <div class="float-left">
+              <h4>Sales</h4>
+            </div>
+            <div class="float-right">
+              <button class="btn btn-primary" style="margin-left: 0.5%;" routerLink="/amount/add"
+                routerLinkActive="active">
+                <i class="mdi mdi-cart-plus"></i>Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 grid-margin">
+
+            <div class="row">
+              <div class="col-md-2 d-flex align-items-center">
+                <div class="d-flex flex-row align-items-center">
+                  <i class="mdi mdi-cart-outline icon-md " style="color:lightsteelblue"></i>
+                  <h4 class="mb-0 ml-2">
+                    {{totalDebit}}
+                  </h4>
+                </div>
+              </div>
+
+            </div>
+            <div class="table-responsive  mt-4 mb-0">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                      N°commande
+                    </th>
+                    <th>
+                      Date Commande
+                    </th>
+                    <th>
+                      Total
+                    </th>
+                    <th class="td-right">
+
+                    </th>
+                  </tr>
+                </thead>
+                <tbody *ngFor='let sale of sales'>
+                  <tr>
+                    <td>
+                      {{sale.id_solde}}
+                    </td>
+                    <td>
+                      {{sale.entry_date | date:'dd-MM-yyyy HH:mm:ss'}}
+                    </td>
+                    <td>
+                      {{sale.solde  | number}}
+                    </td>
+                    <td class="td-right">
+                      <a style="color: black">
+                        <i class="fa fa-download icon-sm download" [routerLink]="['/invoices/download/',sale.id_solde]"
+                          routerLinkActive="active" style="color: black"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="float-right">
+  
+                <button class="btn" class="btn btn-info"  style="margin-left: 0.5%;"  (click)="exportAsXLSX()">
+                  <i class="mdi mdi-file-excel"></i>  Export
+                </button>
+            </div>
+            </div>
+          </div>
+
+      </div>
+    
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

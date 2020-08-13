@@ -1,0 +1,212 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-12 grid-margin">
+            <div class="float-left">
+              <h4>Summary</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-14 grid-margin">
+          <div class="card card-statistics">
+            <div class="row">
+
+              <div class="card-col col-xl-4 col-lg-3 col-md-3 col-6">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                    <i class="mdi mdi-cash-usd text-primary mr-0 mr-sm-4 icon-lg"></i>
+                    <div class="wrapper text-center text-sm-left">
+                      <p class="card-text mb-0">Total Amount</p>
+                      <div class="fluid-container">
+                        <h3 class="mb-0 font-weight-medium">${{summaryDebit | number:0}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-col col-xl-4 col-lg-3 col-md-3 col-6">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                    <i class="mdi mdi-message-processing icon-md text-primary mr-0 mr-sm-4 icon-lg"></i>
+                    <div class="wrapper text-center text-sm-left">
+                      <p class="card-text mb-0">Total SMS</p>
+                      <div class="fluid-container">
+                        <h3 class="mb-0 font-weight-medium">{{summaryCountSms}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-col col-xl-4 col-lg-3 col-md-3 col-6">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                    <i class="fa fa-code text-primary mr-0 mr-sm-4 icon-lg"></i>
+                    <div class="wrapper text-center text-sm-left">
+                      <p class="card-text mb-0">Total API</p>
+                      <div class="fluid-container">
+                        <h3 class="mb-0 font-weight-medium">{{totalApi}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2  grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="form-group">
+                  <div class="form-group">
+                    <label>Application Title: </label>
+                    &nbsp;
+                    <label class="text-muted">{{AppTitle}}</label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="form-group">
+                    <label>Creation Date: </label>
+                    &nbsp;
+                    <label class="text-muted">{{AppDate}}</label>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label>Mode Developer</label>
+                  <div>
+                    <ui-switch (change)="OnChangeMode(AppMode)" size="small" defaultBgColor="red" name="appModeValue"
+                      [checked]="appModeValue" [(ngModel)]="appModeValue"></ui-switch>
+                  </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                  <label>Enable</label>
+                  <div>
+                    <ui-switch (change)="OnChangeStatus(AppStatus)" size="small" defaultBgColor="red"
+                      name="appStatusValue" [checked]="appStatusValue" [(ngModel)]="appStatusValue"></ui-switch>
+
+                  </div>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">SMS Statistics</h4>
+
+                  <div class="col-md-12 alert alert-info" *ngIf="summaryCountSms==0; else SMSBlock" role="alert">
+                
+                      Sorry! You have no SMS check later .
+                
+                  </div>
+
+                  <ng-template #SMSBlock>
+
+                    <canvas height="100" baseChart [chartType]="'bar'" [datasets]="dashboardBarChartData"
+                      [labels]="dashboardBarChartlabels" [options]="dashboardBarChartOptions" [legend]="true"
+                      [colors]="dashboardBarChartColors">
+                    </canvas>
+                    <div class="row dashboard-bar-chart-legend mt-5 mb-3">
+                      <div class="col" *ngFor='let object of sms'>
+                        <h2>{{object.number}}</h2>
+                        <small class="text-muted">{{object.title}}</small>
+                        <div class="bg"></div>
+                      </div>
+                    </div>
+                  </ng-template>
+          
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <small class="text-muted">DLR:</small>
+                <div class="d-flex justify-content-center align-items-center mb-4">
+
+                  <div class="col-md-12 alert alert-info" *ngIf="DlrCount==0 ; else DLRBlock" role="alert">
+      
+                      Sorry! You have no DLR accuse ckeck later.
+                  
+                  </div>
+
+                  <ng-template #DLRBlock>
+              
+                    <div class="col-md-7">
+                      <h4 class="card-title font-weight-medium mb-0 d-none d-md-block">DLR ACCUSE</h4>
+                      <div class="wrapper mt-4" *ngFor='let Object of DlrStatus '>
+                        <div class="d-flex justify-content-between mb-2">
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0 font-weight-medium">{{Object.Nbr_DLR}}</p>
+                            <small class="text-muted ml-2">{{Object.DlrType}}</small>
+                          </div>
+                          <p class="mb-0 font-weight-medium">{{Object.pourcentage}}%</p>
+                        </div>
+                        <div class="progress">
+                          <div role="progressbar" [class]="ShowColor(Object.DlrType)" [ngStyle]="{'width':
+                            Object.pourcentage + '%'}" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </ng-template>
+                </div>
+
+                <br>
+                <hr>
+
+                <small class="text-muted">Country:</small>
+                <div class="d-flex justify-content-center align-items-center mb-4">
+                  <div class="col-md-12 alert alert-info" *ngIf="CountryCount==0; else CountryBlock" role="alert">
+
+                  
+                      Sorry! You have no Country.
+                   
+                  </div>
+                  <ng-template #CountryBlock>
+                  
+                    <div class="col-md-7">
+                      <h4 class="card-title font-weight-medium mb-0 d-none d-md-block">Countries</h4>
+                      <div class="wrapper mt-4" *ngFor='let Object of CountryStatus '>
+                        <div class="d-flex justify-content-between mb-2">
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0 font-weight-medium">{{Object.Nbr_SMS}}</p>
+                            <small class="text-muted ml-2">{{Object.countrylabel}}</small>
+                          </div>
+                          <p class="mb-0 font-weight-medium">{{Object.pourcentage}}%</p>
+                        </div>
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated bg" role="progressbar"
+                            style="width: 88%" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                 </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

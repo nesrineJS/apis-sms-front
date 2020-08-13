@@ -1,0 +1,162 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-12 grid-margin">
+            <div class="float-left">
+              <h4>Dashboard</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-14 grid-margin">
+          <div class="card card-statistics">
+            <div class="row">
+              <div class="card-col col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                    <i class="fa fa-money icon-md text-primary mr-0 mr-sm-4 icon-lg"></i>
+                    <div class="wrapper text-center text-sm-left">
+                      <p class="card-text mb-0">Total Amount</p>
+                      <div class="fluid-container">
+                        <h3 class="mb-0 font-weight-medium">${{summaryDebit | number:0}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-col col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                    <i class="fa fa-money icon-md text-primary mr-0 mr-sm-4 icon-lg"></i>
+                    <div class="wrapper text-center text-sm-left">
+                      <p class="card-text mb-0">Amount Consumed</p>
+                      <div class="fluid-container">
+                        <h3 class="mb-0 font-weight-medium">${{summaryCredit}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-col col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                    <i class="mdi mdi-message-processing icon-md text-primary mr-0 mr-sm-4 icon-lg"></i>
+                    <div class="wrapper text-center text-sm-left">
+                      <p class="card-text mb-0">Total SMS</p>
+                      <div class="fluid-container">
+                        <h3 class="mb-0 font-weight-medium"> {{summaryCountSms}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-col col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-center flex-column flex-sm-row">
+                    <i class="fa fa-cubes text-primary mr-0 mr-sm-4 icon-lg"></i>
+                    <div class="wrapper text-center text-sm-left">
+                      <p class="card-text mb-0">Total App</p>
+                      <div class="fluid-container">
+                        <h3 class="mb-0 font-weight-medium">{{summaryCountApp}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Performance</h4>
+                <small class="text-muted">Best: </small>
+                <div class="d-flex justify-content-center align-items-center mb-4">
+                  <circle-progress [percent]="MaxSMS/Total*100" [radius]="50" [outerStrokeWidth]="10"
+                    [innerStrokeWidth]="8" [outerStrokeColor]="'rgb(98,216,150)'"
+                    [innerStrokeColor]="'rgba(98,216,150,0.4)'" [animation]="true" [animationDuration]="300">
+                  </circle-progress>
+                </div>
+                <br>
+                <small class="text-muted">Worst: </small>
+                <div class="d-flex justify-content-center align-items-center mb-4">
+                  <circle-progress [percent]="MinSMS/Total*100" [radius]="50" [outerStrokeWidth]="10"
+                    [innerStrokeWidth]="8" [outerStrokeColor]="'rgb(136,98,224)'"
+                    [innerStrokeColor]="'rgba(136,98,224,0.4)'" [animation]="true" [animationDuration]="300">
+                  </circle-progress>
+                </div>
+                <hr>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body" *ngIf="countsms==0 ; else SmsBlock">
+                <h4 class="card-title">SMS Statistics</h4>
+                <div class="alert alert-info" role="alert">
+                  Sorry! No SMS For this DAY
+                </div>
+              </div>
+
+              <ng-template #SmsBlock>
+                <div class="card-body">
+                  <h4 class="card-title">SMS Statistics</h4>
+                  <canvas height="200" baseChart [chartType]="'bar'" [datasets]="SmsBarChartData"
+                    [labels]="SmsBarChartlabels" [options]="AmountBarChartOptions" [legend]="true"
+                    [colors]="dashboardBarChartColors">
+                  </canvas>
+                  <div class="row dashboard-bar-chart-legend mt-5 mb-3">
+                    <div class="col" *ngFor='let object of sms'>
+                      <h2>{{object.number}}</h2>
+                      <small class="text-muted">{{object.title}}</small>
+                      <div class="bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="col-md-5 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body" *ngIf="AmountCount==0 ; else AmountBlock">
+                <h4 class="card-title">Amount Statistics</h4>
+                <div class="alert alert-info" role="alert">
+                  Sorry! No Consumed Amount
+                </div>
+              </div>
+              <ng-template #AmountBlock>
+                <div class="card-body">
+                  <h4 class="card-title">Amount Statistics</h4>
+                  <canvas height="100" baseChart [chartType]="'bar'" [datasets]="AmountBarChartData"
+                    [labels]="AmountBarChartlabels" [options]="AmountBarChartOptions" [legend]="true"
+                    [colors]="dashboardBarChartColors">
+                  </canvas>
+                  <div class="row dashboard-bar-chart-legend mt-5 mb-3">
+                    <div class="col" *ngFor='let app of applications'>
+                      <h2>{{app.solde}}</h2>
+                      <small class="text-muted">{{app.title}}</small>
+                      <div class="bg"></div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

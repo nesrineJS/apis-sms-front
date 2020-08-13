@@ -1,0 +1,125 @@
+@import '../../../styles';
+
+.dashboard-bar-chart-legend {
+  .col {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .bg {
+      margin-left: auto;
+      margin-right: auto;
+      height: 5px;
+      width: 30px;
+      display: block;
+      margin-top: 5px;
+    }
+
+    &:nth-child(1) {
+      .bg {
+        background: #ff5733;
+      }
+    }
+
+    &:nth-child(2) {
+      .bg {
+        background: #af33ff;
+      }
+    }
+
+    &:nth-child(3) {
+      .bg {
+        background: #86ff33;
+      }
+    }
+    &:nth-child(4) {
+      .bg {
+        background: #33ffb8;
+      }
+    }
+    &:nth-child(5) {
+      .bg {
+        background: #3399ff;
+      }
+    }
+    &:nth-child(6) {
+      .bg {
+        background: #9c33ff;
+      }
+    }
+    &:nth-child(7) {
+      .bg {
+        background: #ff33d1;
+      }
+    }
+    &:nth-child(8) {
+      .bg {
+        background: #8b868a;
+      }
+    }
+    &:nth-child(9) {
+      .bg {
+        background: #ca9dc1;
+      }
+    }
+    &:nth-child(10) {
+      .bg {
+        background: #87b68a;
+      }
+    }
+    &:nth-child(11) {
+      .bg {
+        background: #afa1d2;
+      }
+    }
+    &:nth-child(12) {
+      .bg {
+        background: #edbcb6;
+      }
+    }
+   
+  
+  }
+}
+
+.card-revenue-table {
+  .revenue-item {
+    border-bottom: 1px solid $border-color;
+    @extend .py-3;
+
+    &:last-child {
+      border-bottom: 0;
+      @extend .pb-0;
+    }
+
+    &:first-child {
+      @extend .pt-0;
+    }
+
+    .revenue-desc {
+      margin-right: auto;
+      width: 80%;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    .revenue-amount {
+      margin-left: auto;
+      width: 40%;
+
+      p {
+        font-size: 1.25rem;
+        font-family: $type-1;
+        font-weight: 600;
+        text-align: right;
+
+        .rtl & {
+          text-align: left;
+        }
+      }
+    }
+  }
+}

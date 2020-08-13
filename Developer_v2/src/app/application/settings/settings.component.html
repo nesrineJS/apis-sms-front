@@ -1,0 +1,118 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+
+        <form name="form"
+          (ngSubmit)="f.form.valid && PopupUpdateApplication(AppTitle,AppDescription,AppUrl,AppTypeApp, $event) "
+          #f="ngForm" novalidate>
+
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="float-left">
+                <h4>Application Settings</h4>
+              </div>
+              <div class="float-right">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-8 d-flex align-items-stretch grid-margin">
+              <div class="row flex-grow">
+                <div class="col-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <div>
+                        <label>Title</label>
+                        <input aria-describedby="colored-addon2" name="txtTitle" aria-label="Title"
+                          [(ngModel)]="AppTitle" class="form-control" placeholder="Application Title" type="text"
+                          #txtTitle="ngModel" [ngClass]="{ 'border-danger': f.submitted && txtTitle.invalid }"
+                          [ngModelOptions]="{standalone: true}" required>
+                        <input name="txthiddenTitle" [(ngModel)]="appHiddenTitle" style="display: none">
+                      </div>
+
+                      <div class="form-group">
+                        <label>Description</label>
+                        <textarea [(ngModel)]="AppDescription" placeholder="Application Description" [ngModelOptions]="{standalone: true}"
+                          class="form-control">{{AppDescription}}</textarea>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Type Application</label>
+                        <select type="text" class="form-control" name="id_type_app" [(ngModel)]="AppTypeApp"
+                          placeholder="Type Application" #ddlIdTypeApp="ngModel">
+                          <option *ngFor="let type of type_applications" [ngValue]="type.id_type_app">{{type.label}}
+                          </option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Url</label>
+                        <input aria-describedby="colored-addon2" id="AppUrl" name="AppUrl" aria-label="Url"
+                          [(ngModel)]="AppUrl" class="form-control" placeholder="Url Application" type="text">
+                      </div>
+
+
+                      <label>Languages: </label>
+                      <div class="form-check">
+                        <div *ngFor="let language of languages">
+                          <div id="check1" class="app-chk">
+                            <input type="checkbox" id="{{language.id_language}}"
+                              (change)="PopupChechBoxChange(language.id_language, $event)"
+                              [checked]=PopupChechBoxCheck(language.id_language)>&nbsp;
+                            <label class="custom-checkbox" for="{{language.id_language}}"
+                              id="check2">{{language.label}}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label>Enable</label>
+                      <div>
+                        <ui-switch (change)="OnChangeStatus(AppStatus)" size="small" defaultBgColor="red"
+                          name="appStatusValue" [checked]="appStatusValue" [(ngModel)]="appStatusValue"></ui-switch>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                      <label>Mode developer</label>
+                      <div>
+                        <ui-switch (change)="OnChangeMode(AppMode)" size="small" defaultBgColor="red"
+                          name="appModeValue" [checked]="appModeValue" [(ngModel)]="appModeValue"></ui-switch>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                      <label>Creation Date: </label>
+                      &nbsp;
+                      <label class="text-muted">{{AppDate}}</label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-8 d-flex align-items-stretch grid-margin">
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

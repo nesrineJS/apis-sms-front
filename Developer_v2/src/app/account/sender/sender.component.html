@@ -1,0 +1,107 @@
+
+<div class="container-scroller" >
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+      <app-sidebar></app-sidebar>
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+<div class="row">
+    <div class="col-12 grid-margin">
+      <div class="float-left">
+        <h4>Senders</h4>
+      </div>
+      <div class="float-right">
+          <button   class="btn btn-primary" (click)="OpenPopUp(content)" >
+              <i class="fa fa-plus "></i>Add Sender
+            </button> 
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+      <div class="col-12 grid-margin"> 
+                    <div class="table-responsive mt-4 mb-0">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>
+                             Sender
+                            </th>
+                            <th>
+                              Date
+                            </th>
+                            <th>
+                                Number SMS
+                              </th>
+                            <th >
+                              Status
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody *ngFor="let sender of senders">
+                          <tr>
+                            <td >
+                                {{sender.sender}}
+                            </td>
+                            <td >
+                                {{sender.entry_date  | date:'dd/MM/yyyy HH:mm:ss'}}
+                            </td>
+                            <td >
+                                {{sender.nbr_sms}}                   
+                            </td>
+                            <td class="td-right">   
+                                <div  [ngClass]="{ badge:true,
+                                  'badge-success': sender.status === '1',
+                                  'badge-danger':  sender.status === '0',
+                                  'badge-warning': sender.status === '2'}">
+                                </div> {{getStatusState(sender.status)}} 
+                            </td>               
+                          </tr>               
+                        </tbody>
+                      </table>
+                    </div>
+    </div> 
+</div>
+
+  <div class="card">
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="center-align" class="modal-title" id="modal-basic-title">Add Sender</h4>
+       
+          <button id="btnClosePopup" type="button" class="close" (click)="modal.dismiss('Cross click')" data-dismiss="modal"
+                  aria-label="Close"><span aria-hidden="true">×</span></button>
+
+        </div>
+            <form name="form"  (ngSubmit)="f.form.valid && PopupAddSender(sender, $event) " #f="ngForm" novalidate >
+              <div class="card">
+                  <div class="card-body">
+
+                        <div class="form-group">
+                            <label for="sender">Sender</label>
+                            <input type="text" class="form-control" name="sender" [(ngModel)]="sender" placeholder="Sender name"
+                             #txtSender="ngModel" [ngClass]="{ 'border-danger': f.submitted && txtSender.invalid }" required />                    
+                        </div>
+
+                      <div class=" row col-12 grid-margin">                 
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-md-12 grid-margin stretch-card">         
+                          </div>
+
+                          <div class="col-xl-4 col-lg-4 col-md-4 col-md-12 grid-margin stretch-card">
+                          </div> 
+                        
+                          <div class="div-right col-md-2 align-items-stretch grid-margin">
+                            <button type="submit" class="btn btn-success mb-0 mr-2" data-dismiss="modal">Create</button>
+                          </div>                
+                      </div>                  
+
+                </div>
+              </div>
+            </form>
+      </ng-template>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<app-footer></app-footer>

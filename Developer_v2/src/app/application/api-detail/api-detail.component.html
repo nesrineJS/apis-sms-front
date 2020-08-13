@@ -1,0 +1,160 @@
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+      <app-sidebar></app-sidebar>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="float-left">
+                <h4>{{apiTitle}}</h4>
+              </div>
+              <div class="float-right">
+                <button class="btn btn-secondary" (click)="back()">
+                  <i class="fa fa-mail-forward" (click)="back()"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-8 grid-margin stretch-card">
+  
+                  <div class="card ">
+                      <div class="card-body text-center">
+                       <br/><br/><br/>
+                          <h5 class="text-muted">Description</h5>
+                            <p  class="mt-4 card-text">
+                            {{apiDescription}}</p>
+                            <button  class="btn btn-primary btn-sm mt-3 mb-4" (click)="PopupApiDetailOpen(content)">
+                              <i class="fa fa-key" ></i>Activate
+                            </button> &nbsp;
+                            <a href="{{apiUrl}}" target="_blank"  class="btn btn-secondary btn-sm mt-3 mb-4"><i class="fa fa-info-circle"></i>Documentation
+                            </a>
+                          </div>                   
+                      </div>
+                 
+  
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+  
+              <div class="card">
+                <div class="card-body ">
+  
+                  <div class="row border-top pt-3 mt-auto">
+                    <div>
+                      <h5 class="text-muted">Version</h5>
+                      <p>{{apiVersion}}</p>
+                    </div>
+                  </div>
+                  <div class="row border-top pt-3 mt-auto">
+                    <div>
+                      <h5 class="text-muted">Users</h5>
+                      <p>{{apiNbrDeveloper}}</p>
+                    </div>
+                  </div>
+                  <div class="row border-top pt-3 mt-auto">
+                    <div>
+                      <h5 class="text-muted">Apps</h5>
+                      <p>{{apiNbrApp}}</p>
+                    </div>
+                  </div>
+  
+                  <div class="row border-top pt-3 mt-auto">
+                    <div>
+                      <h5 class="text-muted">Last Publish</h5>
+                      <p>{{apiDate  | timeAgo}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-8 grid-margin stretch-card">
+                <div class="card ">
+                    <div class="card-body text-center">
+              
+                        <h5 class="text-muted">Help</h5>
+                          <p  class="mt-4 card-text">
+                        {{apiBody}}</p>
+                    </div>
+              
+              </div>
+  
+            </div>
+  
+
+            <div class="card">
+                <ng-template #content let-modal>
+                  <div class="modal-header">
+          
+                          <h4 class="center-align" class="modal-title" id="modal-basic-title"  [(ngModel)]="apiTypeLabel" ngDefaultControl>
+                              {{apiTitleToAdd}}</h4>&nbsp; 
+                          
+                    <button id="btnClosePopup" type="button" class="close" (click)="modal.dismiss('Cross click')" data-dismiss="modal"
+                            aria-label="Close"><span aria-hidden="true">×</span></button> 
+                  </div>
+                  <ng-container *ngIf="!showDetailApiAdded">
+                  <form name="form"  (ngSubmit)="f.form.valid && PopupApiAdd(title)" #f="ngForm" novalidate >
+                      <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="title">Name</label>
+                                <input type="text" class="form-control" name="title" [(ngModel)]="title" placeholder="{{apiTitleToAdd}}" #txtTitle="ngModel" minlength="4" maxlength="50"  [ngClass]="{ 'border-danger': f.submitted && f.form.invalid }" required />
+                            </div>
+                            <div class="float-right">
+                                <button type="submit" class="btn btn-primary mb-0 mr-2" data-dismiss="modal">Generate</button>
+                            </div>
+                        </div>
+                      </div>
+                    </form>
+                  </ng-container>  
+                    <ng-container *ngIf="showDetailApiAdded">
+                    <form name="form" #d="ngForm" novalidate >
+                        <div class="card">
+                          <div class="card-body">
+          
+                              <div class="form-group">
+                                  <label for="title">Name</label>
+                                  <input type="text" class="form-control border-gray" name="title" [(ngModel)]="popupApiName" 
+                                  value="popupApiTitle" readonly #txtTitle="ngModel"  readonly/>
+                              </div>
+                            
+                              <div class="form-group">
+                                  <label for="key">Api Key</label>
+                                    <div class="input-group">
+          
+                                  <input type="text" class="form-control border-gray" name="key" [(ngModel)]="popupApiKey" value="popupApiKey" #txtApiKey readonly #txtKey="ngModel" readonly/>
+                                  <span class="input-group-addon"><i class="menu-icon fa fa-copy fa-fw text-muted" (click)="PopupCopyInputMessage(txtApiKey)"></i></span>
+                                </div>
+                                </div> 
+                
+                              <div class="form-group"> 
+                                  <label for="key">Api Secret</label>
+                                      <div class="input-group">
+                                        <input [type]="show ? 'text' :'password'" class="form-control border-gray" name="secret" [(ngModel)]="popupApiSecret" 
+                                        value="popupApiSecret"  
+                                         readonly #txtSecret="ngModel" #txtApiSecret readonly>
+                                         <span class="input-group-addon"><i class="menu-icon fa fa-eye fa-fw text-muted"  (click)="PopupViewPassword()"></i></span>
+                                         <span class="input-group-addon"><i class="menu-icon fa fa-copy fa-fw text-muted" (click)="PopupCopyInputMessage(txtApiSecret)"></i></span>
+                                    </div>
+                                </div> 
+                                <div class="float-right">
+                                    <button type="submit" class="btn btn-primary mb-0 mr-2" data-dismiss="modal" (click)="modal.dismiss('Cross click')" [routerLink]="['/api/',id_app]" routerLinkActive="active">Close</button>
+                                </div>
+                          </div>
+                        </div>
+                      </form>
+                    </ng-container>
+                </ng-template>      
+            </div>
+          </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>

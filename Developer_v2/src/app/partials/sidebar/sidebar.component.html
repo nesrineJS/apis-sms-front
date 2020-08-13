@@ -1,0 +1,302 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar" *ngIf="side.visible">
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <div class="nav-link">
+          <div class="user-wrapper">
+            <div class="profile-image">
+              <img src="{{image_developer}}" >
+            </div>
+            <div class="text-wrapper">
+              <p class="profile-name">{{name_developer}}</p>
+              <div>
+                <small class="designation text-muted">{{totalSum | number:0}} $</small>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-success btn-block" (click)="PopupOpen(content)">Add application
+            <i class="mdi mdi-plus"></i>
+          </button>
+        </div>
+      </li>
+      <li class="nav-item" *ngIf="isSlideBar_application">
+        <a class="nav-link" (click)="applicationDropdownOpen = !applicationDropdownOpen" [attr.aria-expanded]="!applicationDropdownOpen"
+          aria-controls="application-dropdown" [ngClass]="{'active':applicationLink.isActive  || applicationLink2.isActive
+          || applicationLink3.isActive || applicationLink4.isActive || applicationLink5.isActive || applicationLink6.isActive
+          || applicationLink7.isActive}">
+          <i class="menu-icon fa fa-list"></i>
+          <span class="menu-title">{{name_app}}</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="application-dropdown" [ngbCollapse]="!applicationDropdownOpen">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/application/summary/']" routerLinkActive="active"  #applicationLink2="routerLinkActive">
+                  <i class="menu-icon fa fa-dashboard text-muted"></i>
+                  <span class="menu-title">Summary</span>
+                </a>
+              </li>         
+              <li class="nav-item">
+                  <a class="nav-link" [routerLink]="['/application/message/']" routerLinkActive="active" #applicationLink3="routerLinkActive">
+                    <i class="menu-icon fa fa-inbox text-muted"></i>
+                    <span class="menu-title">Sending box</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  [routerLink]="['/application/api/']" routerLinkActive="active" #applicationLink4="routerLinkActive">
+                      <i class="menu-icon fa fa-code text-muted"></i>
+                      <span class="menu-title">Api</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link"  [routerLink]="['/application/amount/']" routerLinkActive="active" #applicationLink5="routerLinkActive">
+                        <i class="menu-icon fa fa-money text-muted"></i>
+                        <span class="menu-title">Amount</span>
+                      </a>
+                  </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/application/statistics/']" routerLinkActive="active" #applicationLink="routerLinkActive">
+                          <i class="menu-icon fa fa-bar-chart-o text-muted"></i>
+                          <span class="menu-title">Statistics</span>
+                        </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link"  [routerLink]="['/application/share/']" routerLinkActive="active" #applicationLink6="routerLinkActive">
+                        <i class="menu-icon fa fa-share-alt-square fa-fw text-muted"></i>
+                        <span class="menu-title">Share With</span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/application/settings/']" routerLinkActive="active" #applicationLink7="routerLinkActive">
+                          <i class="menu-icon fa fa-cog fa-fw text-muted"></i>
+                          <span class="menu-title">Settings</span>
+                        </a>
+                    </li>        
+          </ul>
+        </div>
+      </li>
+  
+      
+      <li class="nav-item"   *ngIf="!AccountDropdownOpen  ; else AccountBlock">
+        <a class="nav-link" (click)="GeneralDropdownOpen = !GeneralDropdownOpen" [attr.aria-expanded]="!GeneralDropdownOpen"
+           aria-controls="general-dropdown" [ngClass]="{'active':generalLink.isActive || generalLink2.isActive
+           || generalLink3.isActive || generalLink4.isActive || generalLink5.isActive } ">
+          <i class="menu-icon fa fa-list"></i>
+          <span class="menu-title">General Menu</span>
+          <i class="menu-arrow" ></i>
+        </a>
+        <div class="collapse" id="general-dropdown" [ngbCollapse]="GeneralDropdownOpen">
+          <ul class="nav flex-column sub-menu">
+      
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" #generalLink4="routerLinkActive">
+                  <i class="menu-icon fa fa-dashboard text-muted"></i>
+                  <span class="menu-title">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/message" routerLinkActive="active" #generalLink2="routerLinkActive">
+                  <i class="menu-icon fa fa-inbox text-muted"></i>
+                  <span class="menu-title">Sending box</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/applications" routerLinkActive="active" #generalLink5="routerLinkActive">
+                  <i class="menu-icon fa fa-cube text-muted"></i>
+                  <span class="menu-title">Applications</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/amount" routerLinkActive="active" #generalLink3="routerLinkActive">
+                  <i class="menu-icon fa fa-money text-muted"></i>
+                  <span class="menu-title">Amount</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/statistics" routerLinkActive="active" #generalLink="routerLinkActive">
+                  <i class="menu-icon fa fa-bar-chart-o text-muted"></i>
+                  <span class="menu-title">Statistics</span>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+  
+      <ng-template #AccountBlock>
+  
+          <li class="nav-item">
+              <a class="nav-link" (click)="GeneralDropdownOpen = !GeneralDropdownOpen" 
+                 aria-controls="general-dropdown" [ngClass]="{'active':generalLink.isActive || generalLink2.isActive
+                 || generalLink3.isActive || generalLink4.isActive || generalLink5.isActive } ">
+                <i class="menu-icon fa fa-list"></i>
+                <span class="menu-title">General Menu</span>
+                <i class="menu-arrow" ></i>
+              </a>
+              <div class="collapse" id="general-dropdown" [ngbCollapse]="!GeneralDropdownOpen">
+                <ul class="nav flex-column sub-menu">
+            
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" #generalLink4="routerLinkActive">
+                        <i class="menu-icon fa fa-dashboard text-muted"></i>
+                        <span class="menu-title">Dashboard</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/message" routerLinkActive="active" #generalLink2="routerLinkActive">
+                        <i class="menu-icon fa fa-inbox text-muted"></i>
+                        <span class="menu-title">Sending box</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/applications" routerLinkActive="active" #generalLink5="routerLinkActive">
+                        <i class="menu-icon fa fa-cube text-muted"></i>
+                        <span class="menu-title">Applications</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/amount" routerLinkActive="active" #generalLink3="routerLinkActive">
+                        <i class="menu-icon fa fa-money text-muted"></i>
+                        <span class="menu-title">Amount</span>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" routerLink="/statistics" routerLinkActive="active" #generalLink="routerLinkActive">
+                        <i class="menu-icon fa fa-bar-chart-o text-muted"></i>
+                        <span class="menu-title">Statistics</span>
+                      </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+      </ng-template>
+  
+  
+      <li class="nav-item" >
+        <a class="nav-link" (click)="AccountDropdownOpen = !AccountDropdownOpen" [attr.aria-expanded]="AccountDropdownOpen"
+           aria-controls="account-dropdown" [ngClass]="{'active':accountLink.isActive || accountLink2.isActive 
+           || accountLink3.isActive || accountLink4.isActive || accountLink5.isActive || accountLink6.isActive} ">
+          <i class="menu-icon mdi mdi-television"></i>
+          <span class="menu-title">Account</span>
+          <i class="menu-arrow" ></i>
+        </a>
+        <div  class="collapse" id="account-dropdown" [ngbCollapse]="!AccountDropdownOpen">
+          <ul class="nav flex-column sub-menu">
+           
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/profil" routerLinkActive="active" #accountLink4="routerLinkActive">
+                  <i class="menu-icon fa fa-user text-muted"></i>
+                  <span class="menu-title">{{name_developer}}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/privacy" routerLinkActive="active" #accountLink2="routerLinkActive">
+                  <i class="menu-icon fa fa-lock text-muted"></i>
+                  <span class="menu-title">Privacy</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/sender" routerLinkActive="active" #accountLink5="routerLinkActive">
+                  <i class="menu-icon fa fa-send text-muted"></i>
+                  <span class="menu-title">Sender</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/invoices"  routerLinkActive="active" #accountLink3="routerLinkActive">
+                  <i class="menu-icon fa fa-money text-muted"></i>
+                  <span class="menu-title">Invoices</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/amount/add"  routerLinkActive="active" #accountLink="routerLinkActive">
+                  <i class="menu-icon fa fa-plus text-muted"></i>
+                  <span class="menu-title">Add Amount</span>
+                </a>
+            </li>
+         
+            <li class="nav-item">
+              <a class="nav-link" (click)="onLogout()"  routerLinkActive="active" #accountLink6="routerLinkActive">
+                <i class="menu-icon fa fa-sign-out text-muted"></i>
+                <span class="menu-title">Sign Out</span>
+              </a>              
+          </li>
+        </ul>
+        </div>
+    
+      </li>
+    </ul>
+  </nav>
+  
+    <ng-template #content let-modal>
+  
+        <div class="modal-header">
+          <h4 class="center-align" class="modal-title" id="modal-basic-title">Add Application</h4>
+          <button id="btnClosePopup" type="button" class="close" (click)="modal.dismiss('Cross click')" data-dismiss="modal"
+                  aria-label="Close"><span aria-hidden="true">×</span></button>
+  
+        </div>
+  
+          <form name="form"  (ngSubmit)="f.form.valid && PopupAddApplication(title,description,url,id_type_app, $event) " #f="ngForm" novalidate >
+            <div class="card">
+              <div class="card-body">
+  
+                  <div class="form-group">
+                      <label>Title</label>
+                      <input type="text" class="form-control" name="title" [(ngModel)]="title" placeholder="Application Title" #txtTitle="ngModel" [ngClass]="{ 'border-danger': f.submitted && txtTitle.invalid }" required />     
+                  </div>
+  
+                <div class="form-group">
+                      <label>Description</label>
+                      <textarea aria-describedby="colored-addon2" aria-label="Description"
+                      id="description" name="txtDescription" [(ngModel)]="description" class="form-control"
+                      placeholder="Description" ></textarea>
+                </div>
+  
+                
+                <div class="form-group">
+                    <label>Type Application</label>
+                    <select type="text" class="form-control" name="id_type_app" [(ngModel)]="id_type_app" placeholder="Type Application" #ddlIdTypeApp="ngModel" [ngClass]="{ 'border-danger': f.submitted && ddlIdTypeApp.invalid }" required >
+                      <option *ngFor="let type of type_applications"
+                                  [ngValue]="type.id_type_app">{{type.label}}</option>
+                    </select>
+                </div>
+  
+                
+                <div class="form-group">
+                    <label>Url</label>
+                    <input aria-describedby="colored-addon2" id="url" name="txtUrl" aria-label="Url"
+                           [(ngModel)]="url" class="form-control" placeholder="Url Application" type="text">
+                </div>          
+                  <label>Languages: </label>
+                    <div class="form-check">
+                        <div *ngFor="let language of languages">
+                            <div id="check1">
+                          <input type="checkbox"  id="{{language.id_language}}"
+                          (change)="PopupChechBoxChange(language.id_language, $event)">
+  
+                          <label class="custom-checkbox" for="{{language.id_language}}" id="check2">{{language.label}}</label>
+                          </div>                     
+                        </div>
+                    </div>
+  
+      
+                <div class=" row col-12 grid-margin">                
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-md-12 grid-margin stretch-card">         
+                    </div>
+  
+                     <div class="col-xl-4 col-lg-4 col-md-4 col-md-12 grid-margin stretch-card">
+                    </div> 
+                  
+                    <div class="div-right col-md-2 align-items-stretch grid-margin">
+                      <button type="submit" class="btn btn-success mb-0 mr-2" data-dismiss="modal">Create</button>
+                    </div>
+                
+                </div>                  
+                    <div *ngIf="f.submitted && f.form.invalid" class="alert alert-danger" role="alert"><i class="mdi mdi-alert-circle"></i>Please, Fill in your form fields</div>                
+              </div>
+            </div>
+          </form>
+  
+    </ng-template>
+  
+  
+  
+  

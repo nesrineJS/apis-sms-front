@@ -1,0 +1,147 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-12 grid-margin">
+            <div class="float-left">
+              <h4>My Applications</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" *ngFor='let app of applications'>
+            <div class="card card-statistics">
+              <a class="widget-app" (click)="GoToSummary(app.id_app,app.title)">
+
+                <div class="card-body">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <i class="{{app.icone}} icon-lg" [ngStyle]="{color:app.color}"></i>
+                    </div>
+                    <div class="float-right">
+                      <p class="mb-0 text-right">{{app.title}} &nbsp; <a (click)="GoToSettings(app.id_app,app.title)">
+                          <i class="menu-icon fa fa-cog fa-fw text-muted"></i></a></p>
+                      <div class="fluid-container">
+                        <h3 class="font-weight-medium text-right mb-0">{{app.solde}}</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row text-gray d-md-flex d-none">
+                    <div class="col-md-8 d-flex  flex-row ">
+                      <p class="mb-0 ml-1"> {{app.nbr_sms}} SMS &nbsp;<small>( {{app.nbr_api}} API )</small> </p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics card-add">
+              <div class="card-body text-center">
+                <div class="clearfix">
+                  <div class="text-center">
+                    <i class="mdi mdi mdi-plus-circle-outline  text-muted" (click)="PopupOpen(content)"
+                      placement="bottom" ngbTooltip="Add New Application"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #content let-modal>
+
+            <div class="modal-header">
+              <h4 class="center-align" class="modal-title" id="modal-basic-title">Add Application</h4>
+              <button id="btnClosePopup" type="button" class="close" (click)="modal.dismiss('Cross click')"
+                data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+            </div>
+
+            <form name="form"
+              (ngSubmit)="f.form.valid && PopupAddApplication(title,description,url,id_type_app, $event) " #f="ngForm"
+              novalidate>
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" [(ngModel)]="title"
+                      placeholder="Application Title" #txtTitle="ngModel"
+                      [ngClass]="{ 'border-danger': f.submitted && txtTitle.invalid }" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea aria-describedby="colored-addon2" aria-label="Description" id="description"
+                      name="txtDescription" [(ngModel)]="description" class="form-control"
+                      placeholder="Description"></textarea>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label>Type Application</label>
+                    <select type="text" class="form-control" name="id_type_app" [(ngModel)]="id_type_app"
+                      placeholder="Type Application" #ddlIdTypeApp="ngModel"
+                      [ngClass]="{ 'border-danger': f.submitted && ddlIdTypeApp.invalid }" required>
+                      <option *ngFor="let type of type_applications" [ngValue]="type.id_type_app">{{type.label}}
+                      </option>
+                    </select>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label>Url</label>
+                    <input aria-describedby="colored-addon2" id="url" name="txtUrl" aria-label="Url" [(ngModel)]="url"
+                      class="form-control" placeholder="Url Application" type="text">
+                  </div>
+         
+                  <div class="form-check">
+
+                    <div *ngFor="let language of languages">
+
+                      <div id="check1">
+                        <input type="checkbox" id="{{language.id_language}}"
+                          (change)="PopupChechBoxChange(language.id_language, $event)">
+
+                        <label class="custom-checkbox" for="{{language.id_language}}"
+                          id="check2">{{language.label}}</label>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class=" row col-12 grid-margin">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-md-12 grid-margin stretch-card">
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-md-12 grid-margin stretch-card">
+                    </div>
+
+                    <div class="div-right col-md-2 align-items-stretch grid-margin">
+                      <button type="submit" class="btn btn-success mb-0 mr-2"
+                        (click)="showNotification( 'success', 'Application successfully added !')"
+                        data-dismiss="modal">Create</button>
+                    </div>
+
+                  </div>
+                  <div *ngIf="f.submitted && f.form.invalid" class="alert alert-danger" role="alert"><i
+                      class="mdi mdi-alert-circle"></i>Please, Fill in your form fields</div>
+                </div>
+              </div>
+            </form>
+
+          </ng-template>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

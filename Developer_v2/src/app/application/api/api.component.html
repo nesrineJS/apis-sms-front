@@ -1,0 +1,123 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+          <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="float-left">
+                    <h4>My Apis / Packages</h4>
+                  </div>
+              </div>
+            </div>
+
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card" *ngFor='let api of applications'>
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-center mb-0 text-right">
+                  <i class="{{api.logo}} icon-lg d-flex align-items-center"></i>
+                  <div class="d-flex flex-column ml-4">
+                    <span class="d-flex flex-column">
+                      <p class="mb-0">{{api.label}}
+                        &nbsp; <a>
+                          <i class="menu-icon fa fa-cog fa-fw text-muted"
+                            (click)="PopupApiOpen(content,api.id_app_api)"></i></a>
+                        &nbsp; <a href="{{api.api_url}}" target="_blank">
+                          <i class="menu-icon fa fa-info-circle text-muted"></i></a>
+                      </p>
+                      <h4 class="font-weight-bold">{{api.nbr_sms}} SMS</h4>
+                    </span>
+                    <small class="text-muted wrapper">API Key: {{api.key}}</small>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics card-add">
+              <div class="card-body text-center">
+                <div class="clearfix">
+                  <div class="text-center">
+                    <i class="mdi mdi mdi-plus-circle-outline text-muted " [routerLink]="['/api/list']"
+                      routerLinkActive="active" placement="bottom" ngbTooltip="Add New API">
+                    </i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <ng-template #content let-modal>
+              <div class="modal-header">
+
+                <h4 class="center-align" class="modal-title" id="modal-basic-title" [(ngModel)]="popupApiLabel"
+                  ngDefaultControl>
+                  {{popupApiLabel}}</h4>&nbsp;
+
+                <button id="btnClosePopup" type="button" class="close" (click)="modal.dismiss('Cross click')"
+                  data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+              </div>
+              <form name="form" (ngSubmit)="f.form.valid && PopupApiOpen(content , popupApiID)" #f="ngForm" novalidate>
+                <div class="card">
+                  <div class="card-body">
+
+                    <div class="form-group">
+                      <label for="title">Api</label>
+                      <input type="text" class="form-control border-gray" name="title" [(ngModel)]="popupApiTitle"
+                        value="popupApiTitle" readonly #txtTitle="ngModel" readonly />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="key">Api Key</label>
+                      <div class="input-group">
+
+                        <input type="text" class="form-control border-gray" name="key" [(ngModel)]="popupApiKey"
+                          value="popupApiKey" #txtApiKey readonly #txtKey="ngModel" readonly />
+                        <span class="input-group-addon"><i class="menu-icon fa fa-copy fa-fw text-muted"
+                            (click)="PopupCopyInputMessage(txtApiKey)"></i></span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="key">Api Secret</label>
+                      <div class="input-group">
+                        <input [type]="show ? 'text' :'password'" class="form-control border-gray" name="secret"
+                          [(ngModel)]="popupApiSecret" value="popupApiSecret" readonly #txtSecret="ngModel"
+                          #txtApiSecret readonly>
+                        <span class="input-group-addon"><i class="menu-icon fa fa-eye fa-fw text-muted"
+                            (click)="PopupViewPassword()"></i></span>
+                        <span class="input-group-addon"><i class="menu-icon fa fa-copy fa-fw text-muted"
+                            (click)="PopupCopyInputMessage(txtApiSecret)"></i></span>
+                        <span class="input-group-addon"><i class="menu-icon fa fa-refresh fa-fw text-muted"
+                            (click)="  PopupGeneratePassword(popupApiID)"></i></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="status">Status</label>
+                      <div>
+                    
+    
+
+                      <ui-switch (change)="OnChangeStatus(popupApiID)" size="small" defaultBgColor="red"
+                      name="appStatusValue" [checked]="appStatusValue" [(ngModel)]="appStatusValue" >
+                        </ui-switch>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+            </ng-template>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

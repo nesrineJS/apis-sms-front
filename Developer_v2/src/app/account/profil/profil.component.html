@@ -1,0 +1,156 @@
+<div class="container-scroller" >
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+<form name="form"  (ngSubmit)="f.form.valid  && SaveDeveloperInfos()" #f="ngForm" novalidate >
+
+<div class="row">
+    <div class="col-12 grid-margin">
+      <div class="float-left">
+        <h4>Complete your Profil</h4>
+      </div>
+      <div class="float-right">
+        <button  type="submit"  class="btn btn-primary">
+          <i class="fa fa-plus "></i>Save
+        </button>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-md-6 d-flex align-items-stretch grid-margin" >
+    <div class="row flex-grow">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          
+         <div class="card-header header-sm d-flex align-items-center">
+              <div class="wrapper d-flex flex-row align-items-center">
+                  <p class="card-title mb-0 ml-3 "> Personal Informations </p>
+              </div>
+        </div>
+
+          <div class="card-body" >           
+            
+              <div class="form-group">
+                 
+                     <label for="title">Firstname</label>
+                      <input aria-describedby="colored-addon2" name="txtTitle" aria-label="Title"
+                          [(ngModel)]="profilFirstname" class="form-control" placeholder="Firstname" type="text" #txtTitle="ngModel"
+                          [ngClass]="{ 'border-danger': f.submitted && txtTitle.invalid }"  required >
+                      <input [(ngModel)]="hiddenFirstname" name="hiddenFirstname" style="display:none" type="text"  >
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputLastname">Lastname</label>                                          
+                  <input type="text" class="form-control" id="exampleInputLastname" name="profiLastname"  required [(ngModel)]="profiLastname"  placeholder="Last Name">
+                  <input [(ngModel)]="hiddenLastname" name="hiddenLastname" style="display:none" type="text" >
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputMobile">Mobile</label>
+                  <input  type="text" class="form-control" id="exampleInputMobile" name="profilMobile"  [(ngModel)]="profilMobile"  placeholder="Mobile">
+              </div> 
+              <div class="form-group">
+                        <label for="exampleInputEmail">Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail" required name="profilEmail"  [(ngModel)]="profilEmail"   placeholder="Email@example.com" readonly>
+              </div>               
+          </div>
+        </div>
+      </div>   
+  </div>
+  </div>
+
+
+
+  <div class="col-md-6 d-flex align-items-stretch grid-margin">
+      <div class="row flex-grow">
+        <div class="col-12 grid-margin">
+          <div class="card">
+              <div class="card-header header-sm d-flex align-items-center">
+                  <div class="wrapper d-flex flex-row align-items-center">
+                      <p class="card-title mb-0 ml-3 "> Optional Informations </p>
+                  </div>
+            </div>
+            <div class="card-body">
+              <form class="forms-sample">   
+                  <div class="form-group">
+                      <label for="id_country">Country</label>
+                      <select type="text" class="form-control" name="id_country" [(ngModel)]="profilIDCountry" #ddlIdCountry="ngModel" >
+                        <option *ngFor="let country of countries"  [ngValue]="country.id_country">{{country.label}}</option>
+                      </select>
+                  </div>
+  
+                    <div class="form-group">
+                            <label for="exampleInputBirthdate">Birthday</label>
+                            <input type="text" class="form-control" id="exampleInputBirthdate" name="profilBirthDay"  
+                            [(ngModel)]="profilBirthDay" 
+                            value="profilBirthDay" placeholder="dd/mm/yyyy">
+                    </div>
+
+                    <div class="form-group">
+                       <label>Gender</label>
+                        <select type="text" class="form-control" name="profilGender" [(ngModel)]="profilGender" (change)="selectChangeHandler($event)"  >
+                            
+                            <option value="f">Female</option>
+                            <option value="h">Male</option>
+
+                          </select>         
+
+                    </div>                       
+                    <div class="form-group">
+                        <label for="exampleInputTva">Tva</label>
+                        <input type="text" class="form-control" id="exampleInputTva" name="profilTva"  [(ngModel)]="profilTva" value="profilTva" placeholder="Tva">
+                  </div> 
+
+                </form>
+            </div>
+          </div>
+        </div>        
+    </div>
+  </div>
+</div>
+
+      <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch grid-margin">
+              <div class="row flex-grow">
+                <div class="col-12 grid-margin">
+                  <div class="card">
+                      <div class="card-header header-sm d-flex align-items-center">
+                          <div class="wrapper d-flex flex-row align-items-center">
+                              <p class="card-title mb-0 ml-3 "> Company Informations </p>
+                          </div>
+                    </div>
+                    <div class="card-body">
+                      <form class="forms-sample">
+                          <div class="form-group">
+                            <label for="exampleInputCompany">Company</label>
+                            <input type="text" class="form-control" id="exampleInputCompany" name="profilCompany"  [(ngModel)]="profilCompany" value="profilCompany" placeholder="Company">
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleInputAddress">Address</label>
+                              <input type="text" class="form-control" id="exampleInputAddress" name="profilAddress"  [(ngModel)]="profilAddress" value="profilAddress" placeholder="Address">
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleInputWebiste">Website</label>
+                              <input type="text" class="form-control" id="exampleInputWebiste" name="profilWebsite"  [(ngModel)]="profilWebsite" value="profilWebsite"placeholder="Webiste">
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleInputDevise">Devise</label>
+                              <input type="text" class="form-control" id="exampleInputDevise" name="profilDevise"  [(ngModel)]="profilDevise" value="profilDevise" placeholder="Devise">
+                            </div>
+                                                      
+                        </form>
+                    </div>
+                  </div>
+                </div>        
+            </div>
+          </div>
+      
+      </div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+<app-footer></app-footer>

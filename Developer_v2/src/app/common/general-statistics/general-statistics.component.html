@@ -1,0 +1,179 @@
+<div class="container-scroller">
+  <app-navbar></app-navbar>
+  <div class="container-fluid page-body-wrapper">
+    <app-sidebar></app-sidebar>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row">
+          <div class="col-12 grid-margin">
+            <div class="float-left">
+              <h4>Statistics by Application</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-header header-sm">
+                <div class="d-flex align-items-center">
+                  <div class="wrapper d-flex align-items-center media-info text-facebook">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class=" fa fa-bar-chart-o"></i>
+                      <p class="card-title mb-0 ml-3 display-5 "> Stat by Application </p>
+                    </div>
+                  </div>
+
+                  <div class="wrapper ml-auto action-bar d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class=" fa fa-eye" (click)="StatApplications()" style="color:lightslategrey"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card-body">
+
+                <div class="d-flex justify-content-center align-items-center mb-4">
+
+
+                  <div class="col-md-12 alert alert-info" *ngIf="ApplicationCount==1 ; else ApplicationBlock"
+                    role="alert">
+
+                    Sorry! Application Statistics Has no value yet .
+
+                  </div>
+                  <ng-template #ApplicationBlock>
+                    <canvas baseChart height="115" [datasets]="barChartData" [labels]="barChartLabels"
+                      [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
+                      (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-header header-sm">
+                <div class="d-flex align-items-center">
+                  <div class="wrapper d-flex align-items-center media-info text-facebook">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class="mdi mdi-chart-areaspline"></i>
+                      <p class="card-title mb-0 ml-3 display-5 "> Stat by SMS </p>
+                    </div>
+                  </div>
+
+                  <div class="wrapper ml-auto action-bar d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class=" fa fa-eye" (click)="StatSms()" style="color:lightslategrey"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center mb-4">
+
+                  <div class="col-md-12 alert alert-info" *ngIf="dayCount==1 ; else SmsDayBlock" role="alert">
+
+                    Sorry! Statistics by Day Has no value yet .
+
+                  </div>
+                  <ng-template #SmsDayBlock>
+                    <canvas baseChart height="115" [datasets]="lineChartData" [labels]="lineChartLabels"
+                      [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                      [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-header header-sm">
+                <div class="d-flex align-items-center">
+                  <div class="wrapper d-flex align-items-center media-info text-facebook">
+                    <div class="d-flex flex-row align-items-center ">
+                      <i class="mdi mdi-chart-pie"></i>
+                      <p class="card-title mb-0 ml-3 display-5 "> Stat by DLR</p>
+                    </div>
+                  </div>
+
+                  <div class="wrapper ml-auto action-bar d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class="fa fa-eye" (click)="StatDlr()" style="color:lightslategrey"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center mb-4">
+
+                  <div class="col-md-12 alert alert-info" *ngIf="DlrCount==1 ; else dlrBlock" role="alert">
+
+                    Sorry! DLR Statistics Has no value yet .
+
+                  </div>
+                  <ng-template #dlrBlock>
+                    <canvas baseChart height="115px" [data]="polarAreaChartData" [labels]="polarAreaChartLabels"
+                      [legend]="polarAreaLegend" [chartType]="polarAreaChartType" (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-header header-sm">
+                <div class="d-flex align-items-center">
+                  <div class="wrapper d-flex align-items-center media-info text-facebook">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class="mdi mdi-chart-arc"></i>
+                      <p class="card-title mb-0 ml-3 display-5 "> Stat by Countries </p>
+                    </div>
+                  </div>
+
+                  <div class="wrapper ml-auto action-bar d-flex flex-row">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class="fa fa-eye" (click)="StatCountry()" style="color:lightslategrey"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center mb-4">
+
+                  <div class="col-md-12 alert alert-info" *ngIf="CountryCount==0 ; else countryBlock" role="alert">
+
+                    Sorry! Statistics By Countries Has no value yet .
+
+                  </div>
+                  <ng-template #countryBlock>
+                    <canvas baseChart height="115px" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                      [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)">
+                    </canvas>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

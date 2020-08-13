@@ -1,0 +1,66 @@
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-sidebar></app-sidebar>
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+                <div class="row">
+                    <div class="col-12 grid-margin">
+                        <div class="float-left">
+                            <h4>Statistics By Countries</h4>
+                        </div>
+                        <div class="float-right">
+                            <button (click)="back()" class="btn btn-secondary">
+                                <i class="fa fa-mail-forward" (click)="back()"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+
+                            <div class="card-header header-sm">
+                                <div id="control_wrapper">
+                                    <div class="d-flex align-items-center">
+                                        <div class="wrapper action-bar d-flex flex-row">
+                                            <div class="d-flex flex-row align-items-center">
+
+                                                <input class="form-control" id="calendar-input" type="text"
+                                                    ngxDaterangepickerMd [(ngModel)]="value"
+                                                    [showCustomRangeLabel]="true" (change)="SelectTime(value)"
+                                                    [locale]="locale"
+                                                    [alwaysShowCalendars]="true" [ranges]="ranges"
+                                                    [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                                                    placeholder="Select range">
+                                                <label for="calendar-input"
+                                                    class="date-range-picker-icon fa fa-calendar"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row grid-margin alert alert-info"
+                                    *ngIf="CountryCount==0 ; else countryBlock" role="alert">
+
+                                    Sorry! Statistics By Countries Has no value yet .
+
+                                </div>
+                                <ng-template #countryBlock>
+                                    <canvas baseChart height="115px" [data]="doughnutChartData"
+                                        [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+                                        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                                    </canvas>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

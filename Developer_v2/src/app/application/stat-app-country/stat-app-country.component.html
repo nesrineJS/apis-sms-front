@@ -1,0 +1,92 @@
+<div class="container-scroller">
+    <app-navbar></app-navbar>
+    <div class="container-fluid page-body-wrapper">
+        <app-sidebar></app-sidebar>
+        <div class="main-panel">
+            <div class="content-wrapper">
+
+                <div class="row">
+                    <div class="col-12 grid-margin">
+                        <div class="float-left">
+                            <h4>Statistics By Countries</h4>
+                        </div>
+                        <div class="float-right">
+                            <button (click)="back()" class="btn btn-secondary">
+                                <i class="fa fa-mail-forward" (click)="back()"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+
+                            <div class="card-header header-sm">
+                                <div class="d-flex align-items-center">
+                                    <div class="wrapper ml-auto action-bar d-flex flex-row">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div id="control_wrapper">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="wrapper action-bar d-flex flex-row">
+                                                        <div class="d-flex flex-row align-items-center">
+
+                                                            <input class="form-control" id="calendar-input" type="text"
+                                                                ngxDaterangepickerMd [(ngModel)]="value"
+                                                                [showCustomRangeLabel]="true"
+                                                                (change)="SelectTime(value)"
+                                                                [locale]="locale"
+                                                                [alwaysShowCalendars]="true" [ranges]="ranges"
+                                                                [linkedCalendars]="true" [isInvalidDate]="isInvalidDate"
+                                                                placeholder="Select range">
+                                                            <label for="calendar-input"
+                                                                class="date-range-picker-icon fa fa-calendar"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div ngbDropdown class="d-inline-block">
+                                                <button class="btn btn-outline-search dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton11" ngbDropdownToggle>
+                                                    {{ddlValueApi}}
+                                                </button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownMenuButton11">
+                                                    <option class="dropdown-item" value=""
+                                                        (click)="SelectApi('','All Api...')">All ...</option>
+                                                    <option class="dropdown-item" [value]="appApi.id_app_api"
+                                                        *ngFor="let appApi of resultAppApi"
+                                                        (click)="SelectApi(appApi.id_app_api,appApi.label)">
+                                                        {{appApi.label}}
+                                                    </option>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row grid-margin alert alert-info" role="alert"
+                                    *ngIf="CountCountries ==0 ; else CountryBlock">
+
+                                    Sorry! Country Statistics Has no value yet .
+
+                                </div>
+                                <ng-template #CountryBlock>
+
+
+                                    <canvas baseChart height="115px" [data]="doughnutChartData"
+                                        [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+                                        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                                    </canvas>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
